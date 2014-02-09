@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="http://nayut.github.io/ivalice/assets/themes/meriot/stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="http://nayut.github.io/ivalice/assets/themes/meriot/stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="http://nayut.github.io/ivalice/assets/themes/meriot/stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="http://nayut.github.io/ivalice/assets/themes/meriot/javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://nayut.github.io/ivalice/assets/themes/meriot/javascripts/headnotsmart.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headnotsmart()
+      })
+    </script>
+    <title>Jobs and Abilities - Ivalice by nayut - </title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/nayut/ivalice">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Ivalice</h1>
+            <h2></h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/nayut/ivalice/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/nayut/ivalice/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        
+<h1>Jobs and Abilities </h1>
+<p><img alt='WhiteMage Abilities' src='/stories/img/WhiteMageAbilities.png' /></p>
+
+<p>今度はジョブとアビリティを２つのモデルに分けて両者を関連付けます。</p>
+
+<h4 id='2'>2つのモデルのリレーションシップについて</h4>
+
+<ul>
+<li><a href='http://d.hatena.ne.jp/FrogPad/20090327/1238212954'>Ruby on Rails: テーブル間のリレーションシップ　has_many belongs_to, has_one, has_and_belongs_to_many - FrogPadの日記</a></li>
+
+<li><a href='http://d.hatena.ne.jp/hichiriki/20081116'>Railsで作るTwitterもどき - 篳篥日記</a></li>
+</ul>
+
+<p>フィールド名: 単数形_id の形式でつなぎます。 1つのジョブに複数のアビリティを持つので「1対多」の関係となります。</p>
+
+<h4 id='scaffold'>scaffoldのやり直し</h4>
+
+<h5 id='destroy'>destroy</h5>
+
+<pre><code>$ rails destroy scaffold ability
+
+$ rake db:drop</code></pre>
+
+<h5 id='scaffold_job'>scaffold job</h5>
+
+<pre><code>$ rails generate scaffold job name:string</code></pre>
+
+<h5 id='scaffold_ability'>scaffold ability</h5>
+
+<p>前回 job:string だったところを job_id:integer に変更しています。 また、「アクションアビリティ(a)」「リアクションアビリティ(r)」「サポートアビリティ(s)」「ムーブアビリティ(m)」の定義 kind も追加しています。</p>
+
+<pre><code>$ rails generate scaffold ability job_id:integer kind:string name:string mp:integer speed:integer jp:integer</code></pre>
+
+<h4 id='id7'>モデルの編集</h4>
+
+<h6 id='appmodelsjobrb'>app/models/job.rb</h6>
+<pre>
+class Job &lt; ActiveRecord::Base
+  attr_accessible :name
+  has_many :abilities
+end
+</pre>
+<h6 id='appmodelsabilityrb'>app/models/ability.rb</h6>
+<pre>
+class Ability &lt; ActiveRecord::Base
+  attr_accessible :job_id, :jp, :kind, :mp, :name, :speed
+  belongs_to :job
+end
+</pre>
+<h5 id='migrate'>migrate</h5>
+
+<pre><code>$ rake db:migrate</code></pre>
+
+<h5 id='id8'>サーバ起動・動作確認</h5>
+
+<pre><code>$ rails s
+
+http://localhost:3000/jobs</code></pre>
+
+<h4 id='id9'>試しにジョブデータを作成</h4>
+
+<p>New Jobリンクから手入力します。</p>
+
+<ul>
+<li>Name: 白魔道士</li>
+</ul>
+
+<h4 id='csv'>アビリティデータ一括取込用のCSVファイルを変更</h4>
+
+<p>上記で作成した白魔道士の job_id は 1 となるので、それに合わせます。</p>
+
+<h6 id='dbseeds_datawhitemagecsv'>db/seeds_data/whitemage.csv</h6>
+<pre>
+1,a,ケアル,6,25,50
+1,a,ケアルラ,10,20,180
+1,a,ケアルガ,16,15,450
+1,a,ケアルジャ,20,10,800
+1,a,レイズ,10,25,200
+1,a,アレイズ,20,10,600
+1,a,リレイズ,16,15,1000
+1,a,リジェネ,8,25,350
+1,a,プロテス,6,25,70
+1,a,プロテジャ,24,15,600
+1,a,シェル,6,25,70
+1,a,シェルジャ,20,15,600
+1,a,ウォール,24,25,400
+1,a,エスナ,18,34,300
+1,a,ホーリー,56,17,600
+1,r,リジェネーター,,,400
+1,s,魔法防御力ＵＰ,,,400
+</pre>
+<h4 id='seedsrb'>seeds.rbの編集</h4>
+
+<h6 id='dbseedsrb'>db/seeds.rb</h6>
+
+<pre><code>- Ability.create(:job =&gt; row[0], ...
++ Ability.create(:job_id =&gt; row[0], ...</code></pre>
+
+<h4 id='id10'>初期データとして投入</h4>
+
+<pre><code>$ rake db:seed</code></pre>
+
+<h4 id='id11'>ジョブのページにアビリティリストを表示</h4>
+
+<h6 id='appviewsjobsshowhtmlerb'>app/views/jobs/show.html.erb</h6>
+
+<pre><code>&lt;p id=&quot;notice&quot;&gt;&lt;%= notice %&gt;&lt;/p&gt;
+
+&lt;p&gt;
+  &lt;b&gt;Name:&lt;/b&gt;
+  &lt;%= @job.name %&gt;
+&lt;/p&gt;
+
+&lt;table&gt;
+&lt;% @job.abilities.each do |ability| %&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;%= ability.kind  %&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;%= ability.name  %&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;%= ability.mp    %&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;%= ability.speed %&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;%= ability.jp    %&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;% end %&gt;
+&lt;/table&gt;
+
+&lt;%= link_to &#39;Edit&#39;, edit_job_path(@job) %&gt; |
+&lt;%= link_to &#39;Back&#39;, jobs_path %&gt;</code></pre>
+
+<h4 id='id12'>サーバ起動・動作確認</h4>
+
+<pre><code>$ rails s
+
+http://localhost:3000/jobs/1</code></pre>
+
+
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/nayut">nayut</a> can be found on <a href="https://github.com/nayut/ivalice">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    
+  </body>
+</html>
+

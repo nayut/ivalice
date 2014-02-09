@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="http://nayut.github.io/ivalice/assets/themes/meriot/stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="http://nayut.github.io/ivalice/assets/themes/meriot/stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="http://nayut.github.io/ivalice/assets/themes/meriot/stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="http://nayut.github.io/ivalice/assets/themes/meriot/javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://nayut.github.io/ivalice/assets/themes/meriot/javascripts/headnotsmart.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headnotsmart()
+      })
+    </script>
+    <title>First Strategy - Ivalice by nayut - </title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/nayut/ivalice">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Ivalice</h1>
+            <h2></h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/nayut/ivalice/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/nayut/ivalice/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        
+<h1>First Strategy </h1>
+<p><img alt='TitleBack' src='/stories/img/TitleBack.png' /></p>
+
+<h2 id='start_rails'>Start Rails</h2>
+
+<h5 id='id1'>アプリケーションの作成</h5>
+
+<pre><code>$ rails new ivalice</code></pre>
+
+<h5 id='id2'>サーバ起動</h5>
+
+<pre><code>$ rails s</code></pre>
+
+<h5 id='id3'>動作確認</h5>
+
+<pre><code>http://localhost:3000/</code></pre>
+
+<h2 id='make_it_zodiac'>Make it Zodiac</h2>
+
+<p>はじめに、白魔道士のアビリティリストを表示してみます。</p>
+
+<h5 id='scaffold'>scaffold</h5>
+
+<pre><code>$ rails generate scaffold ability job:string name:string mp:integer speed:integer jp:integer</code></pre>
+
+<p>使える型 http://whitech0c0late.hatenablog.com/entry/2012/09/07/183229</p>
+
+<h5 id='migrate'>migrate</h5>
+
+<pre><code>$ rake db:migrate</code></pre>
+
+<h5 id='id4'>アビリティページの表示</h5>
+
+<pre><code>http://localhost:3000/abilities</code></pre>
+
+<p>New Abilityリンクから手入力します。</p>
+
+<ul>
+<li>Job: 白魔道士, Name: ケアル, Mp: 6, Speed: 25, Jp: 50</li>
+
+<li>Job: 白魔道士, Name: ケアルラ, Mp: 10, Speed: 20, Jp: 180</li>
+</ul>
+
+<h4 id='csv'>一括取込用のCSVファイルを作成</h4>
+
+<h6 id='dbseeds_datawhitemagecsv'>db/seeds_data/whitemage.csv</h6>
+<pre>
+白魔道士,ケアル,6,25,50
+白魔道士,ケアルラ,10,20,180
+白魔道士,ケアルガ,16,15,450
+白魔道士,ケアルジャ,20,10,800
+白魔道士,レイズ,10,25,200
+白魔道士,アレイズ,20,10,600
+白魔道士,リレイズ,16,15,1000
+白魔道士,リジェネ,8,25,350
+白魔道士,プロテス,6,25,70
+白魔道士,プロテジャ,24,15,600
+白魔道士,シェル,6,25,70
+白魔道士,シェルジャ,20,15,600
+白魔道士,ウォール,24,25,400
+白魔道士,エスナ,18,34,300
+白魔道士,ホーリー,56,17,600
+</pre>
+<h4 id='seedsrb'>seeds.rbの編集</h4>
+
+<h6 id='dbseedsrb'>db/seeds.rb</h6>
+
+<pre><code># coding: utf-8
+require &quot;csv&quot;
+
+Ability.delete_all
+CSV.foreach(&#39;db/seeds_data/whitemage.csv&#39;) do |row|
+  Ability.create(:job =&gt; row[0], :name =&gt; row[1], :mp =&gt; row[2], :speed =&gt; row[3], :jp =&gt; row[4])
+end</code></pre>
+
+<h5 id='id5'>初期データとして投入</h5>
+
+<pre><code>$ rake db:seed</code></pre>
+
+<h5 id='id6'>動作確認</h5>
+
+<pre><code>http://localhost:3000/abilities</code></pre>
+
+
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/nayut">nayut</a> can be found on <a href="https://github.com/nayut/ivalice">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    
+  </body>
+</html>
+

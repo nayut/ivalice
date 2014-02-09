@@ -1,0 +1,11 @@
+
+http://nayut.github.io/ivalice/archive.html
+http://nayut.github.io/ivalice/atom.xml
+http://nayut.github.io/ivalice/categories.html
+http://nayut.github.io/ivalice/index.html
+http://nayut.github.io/ivalice/pages.html
+http://nayut.github.io/ivalice/rss.xml
+http://nayut.github.io/ivalice/sitemap.txt
+http://nayut.github.io/ivalice/stories/1/index.html
+http://nayut.github.io/ivalice/stories/2/index.html
+http://nayut.github.io/ivalice/tags.html
