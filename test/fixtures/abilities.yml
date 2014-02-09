@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  job_id: 1
+  kind: MyString
+  name: MyString
+  mp: 1
+  speed: 1
+  jp: 1
+
+two:
+  job_id: 1
+  kind: MyString
+  name: MyString
+  mp: 1
+  speed: 1
+  jp: 1

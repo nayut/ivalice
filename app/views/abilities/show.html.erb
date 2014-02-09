@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Job:</b>
+  <%= @ability.job_id %>
+</p>
+
+<p>
+  <b>Kind:</b>
+  <%= @ability.kind %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @ability.name %>
+</p>
+
+<p>
+  <b>Mp:</b>
+  <%= @ability.mp %>
+</p>
+
+<p>
+  <b>Speed:</b>
+  <%= @ability.speed %>
+</p>
+
+<p>
+  <b>Jp:</b>
+  <%= @ability.jp %>
+</p>
+
+
+<%= link_to 'Edit', edit_ability_path(@ability) %> |
+<%= link_to 'Back', abilities_path %>

@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<div class="box">
+  <%= @job.name %>
+</div>
+
+<div id="abilitylist" class="box">
+<table>
+<% @job.abilities.each do |ability| %>
+  <tr>
+    <!--td><%= ability.kind  %></td-->
+    <td><%= ability.name  %></td>
+    <td class="num"><%= ability.mp    %></td>
+    <td class="num"><%= ability.speed %></td>
+    <td class="num"><%= ability.jp    %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+
+<%= link_to 'Edit', edit_job_path(@job) %> |
+<%= link_to 'Back', jobs_path %>

@@ -1,0 +1,33 @@
+<h1>Listing abilities</h1>
+
+<table>
+  <tr>
+    <th>Job</th>
+    <th>Kind</th>
+    <th>Name</th>
+    <th>Mp</th>
+    <th>Speed</th>
+    <th>Jp</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @abilities.each do |ability| %>
+  <tr>
+    <td><%= ability.job_id %></td>
+    <td><%= ability.kind %></td>
+    <td><%= ability.name %></td>
+    <td><%= ability.mp %></td>
+    <td><%= ability.speed %></td>
+    <td><%= ability.jp %></td>
+    <td><%= link_to 'Show', ability %></td>
+    <td><%= link_to 'Edit', edit_ability_path(ability) %></td>
+    <td><%= link_to 'Destroy', ability, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ability', new_ability_path %>

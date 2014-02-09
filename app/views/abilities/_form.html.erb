@@ -1,0 +1,41 @@
+<%= form_for(@ability) do |f| %>
+  <% if @ability.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ability.errors.count, "error") %> prohibited this ability from being saved:</h2>
+
+      <ul>
+      <% @ability.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :job_id %><br />
+    <%= f.number_field :job_id %>
+  </div>
+  <div class="field">
+    <%= f.label :kind %><br />
+    <%= f.text_field :kind %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :mp %><br />
+    <%= f.number_field :mp %>
+  </div>
+  <div class="field">
+    <%= f.label :speed %><br />
+    <%= f.number_field :speed %>
+  </div>
+  <div class="field">
+    <%= f.label :jp %><br />
+    <%= f.number_field :jp %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
