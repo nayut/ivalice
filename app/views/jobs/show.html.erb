@@ -1,22 +1,37 @@
 <p id="notice"><%= notice %></p>
 
+<div class="boxTop"></div>
 <div class="box">
+  <ul class="boxHead">
+  	<li class="bh-jb">Job</li>
+  </ul>
   <%= @job.name %>
 </div>
+<div class="boxBottom"></div>
 
+<div class="boxTop"></div>
 <div id="abilitylist" class="box">
-<table>
-<% @job.abilities.each do |ability| %>
-  <tr>
-    <!--td><%= ability.kind  %></td-->
-    <td><%= ability.name  %></td>
-    <td class="num"><%= ability.mp    %></td>
-    <td class="num"><%= ability.speed %></td>
-    <td class="num"><%= ability.jp    %></td>
-  </tr>
-<% end %>
-</table>
+  <ul class="boxHead">
+  	<li class="bh-ab">Ability</li>
+  	<li class="bh-mp">Mp</li>
+  	<li class="bh-sp">Speed</li>
+  	<li class="bh-jp">Jp</li>
+  </ul>
+  <table>
+  	<tbody>
+    <% @job.abilities.each do |ability| %>
+    <tr>
+      <!--td><%= ability.kind  %></td-->
+      <td><%= ability.name  %></td>
+      <td class="num"><%= ability.mp    %></td>
+      <td class="num"><%= ability.speed %></td>
+      <td class="num"><%= ability.jp    %></td>
+    </tr>
+    <% end %>
+  	</tbody>
+  </table>
 </div>
+<div class="boxBottom"></div>
 
 <%= link_to 'Edit', edit_job_path(@job) %> |
 <%= link_to 'Back', jobs_path %>

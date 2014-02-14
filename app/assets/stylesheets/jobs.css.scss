@@ -3,5 +3,29 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #abilitylist table {
-	width: 100%;
+  position: relative;
+  width: 100%;
 }
+
+ul.boxHead {
+  position: absolute;
+}
+
+ul.boxHead li {
+  position: absolute;
+  top: -67px;
+  list-style-type: none;
+  font-family: 'Rosarivo', serif;
+  color: #f8f8ef;
+  font-size: 20px;
+  text-shadow: 1px  2px 1px #333,
+              -1px -2px 1px #333,
+              -1px  2px 1px #333,
+               1px -2px 1px #333;
+}
+
+ul.boxHead li.bh-jb { left:   4px; }
+ul.boxHead li.bh-ab { left:   4px; }
+ul.boxHead li.bh-mp { left: 306px; }
+ul.boxHead li.bh-sp { left: 404px; }
+ul.boxHead li.bh-jp { left: 570px; }
